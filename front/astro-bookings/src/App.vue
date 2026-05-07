@@ -1,18 +1,21 @@
 <template>
   <img alt="Vue logo" src="./assets/logo.png">
   <HealthStatus />
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <RocketFleet />
+  <HelloWorld msg="AstroBookings - Rockets Fleet Management"/>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
 import HealthStatus from './components/HealthStatus.vue'
+import RocketFleet from './components/RocketFleet.vue'
 
 export default {
   name: 'App',
   components: {
     HelloWorld,
-    HealthStatus
+    HealthStatus,
+    RocketFleet
   }
 }
 </script>
