@@ -2,6 +2,7 @@
 name: specify
 description: Writes the specification for a functional or technical requirement, defining the problem, solution, and verification criteria. Use this skill when a product requirement needs to be clearly defined and communicated.
 ---
+
 # Specify skill
 
 ## Role
