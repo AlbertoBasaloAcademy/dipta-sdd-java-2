@@ -14,7 +14,7 @@ parameters : A request or a specification file with a feature or bug to fix.
 ---
 ```
 
-- [codify.md](../1-ecosystem-vibes/assets/1-codify.md) contains the detailed guidelines for the codify command prompt.
+- [codify.md](../../1-0-0-ecosistema_y_vibraciones/demo/assets/1-codify.md) contains the detailed guidelines for the codify command prompt.
 
 ---
 
@@ -22,7 +22,7 @@ parameters : A request or a specification file with a feature or bug to fix.
 
 ### 2.1 AGENTS.md to rule them all
 
-> `initialize this project` 
+> `initialize this project`
 
 ```yaml
 ---
@@ -31,9 +31,9 @@ description : Initialize the environment by loading all necessary commands, rule
 ---
 ```
 
-- [initialize.md](./assets/2-initizalize.md) to be copied to `/.agents/skills/initialize/SKILL.md`.
+- [initialize.md](./assets/initialize/SKILL.md) to be copied to `/.agents/skills/initialize/SKILL.md`.
 
-- [AGENTS.template.md](./assets/2-AGENTS.template.md) to be copied to `/.agents/skills/initialize/AGENTS.template.md`.
+- [AGENTS.template.md](./assets/initialize/AGENTS.template.md) to be copied to `/.agents/skills/initialize/AGENTS.template.md`.
 
 ### 2.2 Language rules
 
@@ -47,7 +47,7 @@ applyTo : back/**/*.java
 ---
 ```
 
-- [java.md](./assets/2-java.md) contains the detailed coding rules for Java in Spring Boot services.
+- [java.md](./assets/java.md) contains the detailed coding rules for Java in Spring Boot services.
 
 ---
 
@@ -66,26 +66,26 @@ description : Write code to implement a feature, following the codify command pr
 ---
 ```
 
-> `follow java rules` 
+> `follow java rules`
 
 ```yaml
 ---
 name : java
-description : Java coding standards for Spring Boot services: naming, immutability, Optional usage, streams, exceptions, generics, and project layout. To be used as a reference for writing or reviewing Java code in the back-end service, ensuring consistency and adherence to best practices.
+description : Java coding standards for Spring Boot services; naming, immutability, Optional usage, streams, exceptions, generics, and project layout. To be used as a reference for writing or reviewing Java code in the back-end service, ensuring consistency and adherence to best practices.
 ---
 ```
 
-- [java.md](./assets/2-java.md) to be copied to `/.agents/skills/java/SKILL.md`.
+- [java.md](./assets/java.md) to be copied to `/.agents/skills/java/SKILL.md`.
 
 ### 3.2 Fallbacks
 
 - ClaudeCode, Codex, Cursor and Copilot can read skills and use them automatically.
-- With IntelliJ you can mention the `@skill-name/SKILL.md` in the prompt to use it.
+- With IntelliJ, you can mention the `@skill-name/SKILL.md` in the prompt to use it.
 
 
 ### 3.3 Find skills
 
-- **Marketplaces**: 
+- **Marketplaces**:
   - [From Vercel](https://skills.sh/)
   - [From Awesome Copilot](https://awesome-copilot.github.com/skills/)
   - [From Anthropic](https://github.com/anthropics/skills)
@@ -101,4 +101,4 @@ description : Java coding standards for Spring Boot services: naming, immutabili
 
 - [write-a-skill.md](https://github.com/mattpocock/skills/blob/main/skills/productivity/write-a-skill/SKILL.md) to be copied to `/.agents/skills/write-a-skill/SKILL.md`.
 
-- [Skill Creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) too be copied to `/.agents/skills/skill-creator/`.
+- [Skill Creator](https://github.com/anthropics/skills/tree/main/skills/skill-creator) to be copied to `/.agents/skills/skill-creator/`.

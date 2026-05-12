@@ -2,29 +2,31 @@
 
 ```mermaid
 flowchart TD
-  classDef nd fill:#f8fafc,stroke:#00c4cc,color:#457b9d
-  classDef sg fill:#f1f5f9,stroke:#00f2ff,color:#457b9d 
+    classDef nd fill:#f8fafc,stroke:#00c4cc,color:#457b9d
+    classDef sg fill:#f1f5f9,stroke:#00f2ff,color:#457b9d 
 
-  subgraph P["PRODUCT"]
-      REQ["*.spec.md"]:::nd
-  end
+    HUM[HUMAN]
 
-  subgraph A["AGENTS"]
-      AGT["AGENTS.md"]:::nd
-      SKL["skills/"]:::nd
-      AGT -.-> SKL
-  end  
+    subgraph P["PRODUCT"]
+        REQ["*.spec.md"]:::nd
+    end
 
-  subgraph S["SOLUTION"]
-      COD[Source Code]:::nd
-  end
+    subgraph T["TECHNOLOGY"]
+        AGT["AGENTS.md"]:::nd
+        SKL["skills/"]:::nd
+        AGT -.-> SKL
+    end
 
-	HMN -->|/initialize| AGT
-  HMN -->|/write-a-skill| SKL
-  REQ -->|/codify| COD
-  AGT -.-> COD  
+    subgraph S["SOLUTION"]
+        COD[Source Code]:::nd
+    end
 
-  class P,A,S sg
+    HUM -->|/initialize| AGT
+    HUM -->|/write-a-skill| SKL
+    REQ -->|/codify| COD
+    AGT & SKL -.-> COD
+
+    class P,T,S sg
 ```
 
 ## Commands

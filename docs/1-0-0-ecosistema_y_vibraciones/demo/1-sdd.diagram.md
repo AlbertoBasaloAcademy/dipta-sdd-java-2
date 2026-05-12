@@ -6,10 +6,10 @@ flowchart TD
     classDef sg fill:#f1f5f9,stroke:#00f2ff,color:#457b9d 
 
     subgraph P["PRODUCT"]
-        REQ["*.spec.md"]:::nd
+        REQ["slug.spec.md"]:::nd
     end
 
-    subgraph T["TECHNOLOGY"]
+    subgraph A["AGENTS"]
         AGT["AGENTS.md"]:::nd
     end  
 
@@ -20,7 +20,7 @@ flowchart TD
     REQ -->|/codify| COD
     AGT -.-> COD  
 
-    class P,T,S sg
+    class P,A,S sg
 ```
 
 ## Commands
@@ -29,5 +29,6 @@ flowchart TD
 
 ## Artifacts
 
-- `*.spec.md` - The specification of a requirement or bug to fix.
+- `spec-slug.spec` - A detailed specification (problem, solution, verification) of a feature or technical requirement.
+
 - `Source Code` - The implementation of the system, including unit tests.
