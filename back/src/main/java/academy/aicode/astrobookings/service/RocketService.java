@@ -2,6 +2,8 @@ package academy.aicode.astrobookings.service;
 
 import academy.aicode.astrobookings.model.Rocket;
 import academy.aicode.astrobookings.repository.RocketRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,6 +12,8 @@ import java.util.UUID;
 
 @Service
 public class RocketService {
+    private static final Logger LOGGER =
+            LoggerFactory.getLogger(RocketService.class);
     private final RocketRepository repository;
 
     public RocketService(RocketRepository repository) {
@@ -28,7 +32,9 @@ public class RocketService {
         validateRocket(rocket);
         rocket.setId(null); // Ensure it's a new rocket
         rocket.setDecommissioned(false);
-        return repository.save(rocket);
+        Rocket savedRocket = repository.save(rocket);
+        LOGGER.info("Rocket created: {} (Name: {}, Capacity: {})", savedRocket.getId(), savedRocket.getName(), savedRocket.getCapacity());
+        return savedRocket;
     }
 
     public Rocket updateRocket(UUID id, Rocket rocketDetails) {
@@ -41,7 +47,9 @@ public class RocketService {
         rocket.setCapacity(rocketDetails.getCapacity());
         rocket.setRange(rocketDetails.getRange());
         
-        return repository.save(rocket);
+        Rocket updatedRocket = repository.save(rocket);
+        LOGGER.info("Rocket updated: {}", updatedRocket.getId());
+        return updatedRocket;
     }
 
     public void decommissionRocket(UUID id) {
@@ -49,6 +57,7 @@ public class RocketService {
                 .orElseThrow(() -> new RuntimeException("Rocket not found with id: " + id));
         rocket.setDecommissioned(true);
         repository.save(rocket);
+        LOGGER.info("Rocket decommissioned: {}", id);
     }
 
     private void validateRocket(Rocket rocket) {

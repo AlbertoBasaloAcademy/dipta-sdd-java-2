@@ -58,6 +58,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { getAllRockets, createRocket, updateRocket, decommissionRocket } from '../services/rocketService';
+import { notify } from '../services/notificationService';
 
 const rockets = ref([]);
 const form = ref({
@@ -90,22 +91,27 @@ const handleSubmit = async () => {
   try {
     if (editingId.value) {
       await updateRocket(editingId.value, form.value);
+      notify('Rocket updated successfully!');
     } else {
       await createRocket(form.value);
+      notify('Rocket registered successfully!');
     }
     await fetchRockets();
     resetForm();
   } catch (e) {
     error.value = 'Failed to save rocket';
+    notify('Failed to save rocket', 'error');
   }
 };
 
 const handleDecommission = async (id) => {
   try {
     await decommissionRocket(id);
+    notify('Rocket decommissioned successfully');
     await fetchRockets();
   } catch (e) {
     error.value = 'Failed to decommission rocket';
+    notify('Failed to decommission rocket', 'error');
   }
 };
 
