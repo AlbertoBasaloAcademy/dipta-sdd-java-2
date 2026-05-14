@@ -41,11 +41,15 @@ const emit = defineEmits(['update:modelValue', 'submit', 'cancel']);
 const form = ref({ ...props.modelValue });
 
 watch(() => props.modelValue, (newValue) => {
-  form.value = { ...newValue };
+  if (JSON.stringify(newValue) !== JSON.stringify(form.value)) {
+    form.value = { ...newValue };
+  }
 }, { deep: true });
 
 watch(form, (newValue) => {
-  emit('update:modelValue', newValue);
+  if (JSON.stringify(newValue) !== JSON.stringify(props.modelValue)) {
+    emit('update:modelValue', newValue);
+  }
 }, { deep: true });
 
 const handleSubmit = () => {
