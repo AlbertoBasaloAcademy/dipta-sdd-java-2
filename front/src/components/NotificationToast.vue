@@ -1,7 +1,10 @@
 <template>
-  <Transition name="fade">
-    <div v-if="notificationState.visible" :class="['notification-toast', notificationState.type]">
-      {{ notificationState.message }}
+  <Transition name="slide">
+    <div v-if="notificationState.visible" :class="['notification-toast', notificationState.type, 'glass-panel']">
+      <div class="notification-content">
+        <span class="icon">{{ notificationState.type === 'success' ? '✓' : '⚠' }}</span>
+        <span class="message">{{ notificationState.message }}</span>
+      </div>
     </div>
   </Transition>
 </template>
@@ -13,31 +16,54 @@ import { notificationState } from '../services/notificationService';
 <style scoped>
 .notification-toast {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  padding: 15px 25px;
-  border-radius: 4px;
-  color: white;
-  font-weight: bold;
+  bottom: 40px;
+  right: 40px;
+  padding: 16px 24px;
+  border-radius: var(--radius-lg);
+  color: var(--on-surface);
   z-index: 1000;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  min-width: 280px;
+  border-left: 4px solid var(--primary);
 }
 
 .success {
-  background-color: #4caf50;
+  border-left-color: #4caf50;
 }
 
 .error {
-  background-color: #f44336;
+  border-left-color: var(--error);
+  color: var(--error);
 }
 
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s ease;
+.notification-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-.fade-enter-from,
-.fade-leave-to {
+.icon {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.message {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.slide-enter-active,
+.slide-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-enter-from {
   opacity: 0;
+  transform: translateX(100px);
+}
+
+.slide-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
 </style>

@@ -1,49 +1,62 @@
 <template>
   <div class="launch-dashboard">
-    <h2>Launch Dashboard</h2>
+    <h2 class="headline-lg">Launch Dashboard</h2>
     <div v-if="error" class="error">{{ error }}</div>
     
-    <table>
-      <thead>
-        <tr>
-          <th>Rocket ID</th>
-          <th>Launch Date</th>
-          <th>Price</th>
-          <th>Min Occupancy</th>
-          <th>Status</th>
-          <th>Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="launch in processedLaunches" :key="launch.id">
-          <td>{{ launch.rocketId }}</td>
-          <td>{{ launch.launchDate }}</td>
-          <td>{{ launch.price }}</td>
-          <td>{{ launch.minOccupancy }}</td>
-          <td>{{ launch.status }}</td>
-          <td>
-            <button 
-              v-if="launch.canConfirm" 
-              @click="handleUpdateStatus(launch.id, 'CONFIRMED')"
-            >
-              Confirm
-            </button>
-            <button 
-              v-if="launch.canComplete" 
-              @click="handleUpdateStatus(launch.id, 'Completed')"
-            >
-              Complete
-            </button>
-            <button 
-              v-if="launch.canCancel" 
-              @click="handleUpdateStatus(launch.id, 'CANCELLED')"
-            >
-              Cancel
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Rocket</th>
+            <th>Launch Date</th>
+            <th>Price</th>
+            <th>Min Occ.</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="launch in processedLaunches" :key="launch.id">
+            <td class="font-bold">{{ launch.rocketId }}</td>
+            <td>{{ launch.launchDate }}</td>
+            <td>
+              <span class="text-secondary">{{ launch.price }}€</span>
+            </td>
+            <td>{{ launch.minOccupancy }}</td>
+            <td>
+              <span :class="['status-badge', getStatusClass(launch.status)]">
+                {{ launch.status }}
+              </span>
+            </td>
+            <td>
+              <div class="actions">
+                <button 
+                  v-if="launch.canConfirm" 
+                  class="btn-primary-sm"
+                  @click="handleUpdateStatus(launch.id, 'CONFIRMED')"
+                >
+                  Confirm
+                </button>
+                <button 
+                  v-if="launch.canComplete" 
+                  class="btn-secondary-sm"
+                  @click="handleUpdateStatus(launch.id, 'Completed')"
+                >
+                  Complete
+                </button>
+                <button 
+                  v-if="launch.canCancel" 
+                  class="btn-outline-sm"
+                  @click="handleUpdateStatus(launch.id, 'CANCELLED')"
+                >
+                  Cancel
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 
@@ -64,6 +77,16 @@ const processedLaunches = computed(() => {
     canCancel: launch.status !== 'CANCELLED' && launch.status !== 'Completed'
   }));
 });
+
+const getStatusClass = (status) => {
+  switch (status) {
+    case 'CREATED': return 'status-created';
+    case 'CONFIRMED': return 'status-confirmed';
+    case 'Completed': return 'status-completed';
+    case 'CANCELLED': return 'status-cancelled';
+    default: return '';
+  }
+};
 
 const fetchLaunches = async () => {
   try {
@@ -91,21 +114,84 @@ defineExpose({ fetchLaunches });
 
 <style scoped>
 .launch-dashboard {
-  margin-top: 20px;
-}
-.error {
-  color: red;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
   text-align: left;
 }
-button {
-  margin-right: 5px;
+
+.headline-lg {
+  margin-bottom: 32px;
+  color: var(--primary);
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 16px;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+.font-bold {
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.text-secondary {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-badge {
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.status-created { background-color: var(--surface-container-high); color: var(--on-surface); }
+.status-confirmed { background-color: var(--secondary-container); color: var(--on-secondary-container); }
+.status-completed { background-color: #4caf50; color: white; }
+.status-cancelled { background-color: var(--error-container); color: var(--on-error-container); }
+
+.btn-primary-sm, .btn-secondary-sm, .btn-outline-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-transform: uppercase;
+  font-family: var(--font-header);
+}
+
+.btn-primary-sm {
+  background-color: var(--primary);
+  color: var(--on-primary);
+  border: none;
+}
+
+.btn-primary-sm:hover {
+  background-color: var(--primary-fixed);
+}
+
+.btn-secondary-sm {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+  border: none;
+}
+
+.btn-outline-sm {
+  background-color: transparent;
+  color: var(--on-surface);
+  border: 1px solid var(--outline-variant);
+}
+
+.btn-outline-sm:hover {
+  border-color: var(--error);
+  color: var(--error);
 }
 </style>

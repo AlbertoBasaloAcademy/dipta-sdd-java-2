@@ -1,11 +1,23 @@
 <template>
-  <NotificationToast />
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HealthStatus />
-  <RocketFleet />
-  <hr />
-  <LaunchForm @launch-created="refreshLaunches" />
-  <LaunchDashboard ref="dashboard" />
+  <div class="app-container">
+    <header class="app-header">
+      <h1 class="headline-xl">AstroBookings</h1>
+      <p class="body-lg">Celestial Journey Management</p>
+    </header>
+    <main class="app-content">
+      <NotificationToast />
+      <HealthStatus />
+      <div class="glass-panel">
+        <RocketFleet />
+      </div>
+      <div class="glass-panel mt-8">
+        <LaunchForm @launch-created="refreshLaunches" />
+      </div>
+      <div class="glass-panel mt-8">
+        <LaunchDashboard ref="dashboard" />
+      </div>
+    </main>
+  </div>
 </template>
 
 <script setup>
@@ -25,12 +37,35 @@ const refreshLaunches = () => {
 </script>
 
 <style>
+.app-container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: var(--margin-mobile);
+}
+
+@media (min-width: 1024px) {
+  .app-container {
+    padding: var(--margin-desktop) var(--gutter);
+  }
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 64px;
+}
+
+.app-content {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.mt-8 {
+  margin-top: 64px;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>

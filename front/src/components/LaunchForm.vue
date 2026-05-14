@@ -1,29 +1,33 @@
 <template>
   <div class="launch-form">
-    <h3>Schedule New Launch</h3>
+    <h3 class="headline-md">Schedule New Launch</h3>
     <div v-if="error" class="error">{{ error }}</div>
     <form @submit.prevent="handleSubmit">
-      <div>
-        <label>Rocket:</label>
-        <select v-model="form.rocketId" required>
-          <option v-for="rocket in rockets" :key="rocket.id" :value="rocket.id">
-            {{ rocket.name }} (Capacity: {{ rocket.capacity }})
-          </option>
-        </select>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Rocket</label>
+          <select v-model="form.rocketId" class="select-field" required>
+            <option v-for="rocket in rockets" :key="rocket.id" :value="rocket.id">
+              {{ rocket.name }} (Capacity: {{ rocket.capacity }})
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Launch Date</label>
+          <input v-model="form.launchDate" class="input-field" type="date" required />
+        </div>
+        <div class="form-group">
+          <label>Price</label>
+          <input v-model.number="form.price" class="input-field" type="number" min="0" step="0.01" required />
+        </div>
+        <div class="form-group">
+          <label>Min Occupancy</label>
+          <input v-model.number="form.minOccupancy" class="input-field" type="number" min="1" required />
+        </div>
       </div>
-      <div>
-        <label>Launch Date:</label>
-        <input v-model="form.launchDate" type="date" required />
+      <div class="form-actions mt-6">
+        <button class="btn-primary" type="submit">Schedule Launch</button>
       </div>
-      <div>
-        <label>Price:</label>
-        <input v-model.number="form.price" type="number" min="0" step="0.01" required />
-      </div>
-      <div>
-        <label>Min Occupancy:</label>
-        <input v-model.number="form.minOccupancy" type="number" min="1" required />
-      </div>
-      <button type="submit">Schedule Launch</button>
     </form>
   </div>
 </template>
@@ -79,18 +83,42 @@ onMounted(fetchRockets);
 
 <style scoped>
 .launch-form {
-  border: 1px solid #ccc;
-  padding: 15px;
-  margin-bottom: 20px;
+  text-align: left;
 }
-.error {
-  color: red;
+
+.headline-md {
+  margin-bottom: 24px;
+  color: var(--primary);
 }
-form div {
-  margin-bottom: 10px;
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
-label {
-  display: inline-block;
-  width: 120px;
+
+@media (min-width: 768px) {
+  .form-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .form-grid {
+    grid-template-columns: 2fr 1.5fr 1fr 1fr;
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.mt-6 {
+  margin-top: 24px;
+}
+
+.input-field, .select-field {
+  width: 100%;
 }
 </style>

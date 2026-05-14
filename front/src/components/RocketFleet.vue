@@ -1,6 +1,6 @@
 <template>
   <div class="rocket-fleet">
-    <h2>Rockets Fleet Management</h2>
+    <h2 class="headline-lg">Rockets Fleet</h2>
     
     <div v-if="error" class="error">{{ error }}</div>
 
@@ -89,12 +89,13 @@ onMounted(fetchRockets);
 
 <style scoped>
 .rocket-fleet {
-  max-width: 800px;
-  margin: 0 auto;
   text-align: left;
 }
-.error {
-  color: red;
-  margin-bottom: 10px;
+
+.headline-lg {
+  margin-bottom: 32px;
+  color: var(--primary);
+  border-bottom: 1px solid var(--outline-variant);
+  padding-bottom: 16px;
 }
 </style>

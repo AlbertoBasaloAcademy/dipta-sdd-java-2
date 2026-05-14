@@ -1,10 +1,16 @@
 <template>
-  <div class="health-status">
-    <h3>Backend Status</h3>
-    <div v-if="loading">Checking status...</div>
-    <div v-else>
-      <p>Status: <span :class="statusClass">{{ health.status }}</span></p>
-      <p>Uptime: {{ health.uptime }}</p>
+  <div class="health-status glass-panel">
+    <h3 class="label-md">Backend Systems</h3>
+    <div v-if="loading" class="body-md">Pulsing systems...</div>
+    <div v-else class="status-grid">
+      <div class="status-item">
+        <span class="label">Status</span>
+        <span :class="['value', statusClass]">{{ health.status }}</span>
+      </div>
+      <div class="status-item">
+        <span class="label">Uptime</span>
+        <span class="value">{{ health.uptime }}</span>
+      </div>
     </div>
   </div>
 </template>
@@ -41,21 +47,51 @@ onMounted(async () => {
 
 <style scoped>
 .health-status {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  max-width: 300px;
-  margin: 20px auto;
+  padding: 16px;
+  max-width: fit-content;
+  margin: 0 auto;
+  border-radius: var(--radius-lg);
 }
+
+.label-md {
+  margin-bottom: 12px;
+  color: var(--secondary);
+}
+
+.status-grid {
+  display: flex;
+  gap: 24px;
+}
+
+.status-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-size: 10px;
+  text-transform: uppercase;
+  color: var(--on-surface-variant);
+  letter-spacing: 0.1em;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  font-family: var(--font-header);
+}
+
 .status-up {
-  color: green;
-  font-weight: bold;
+  color: #4caf50;
+  text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
 }
+
 .status-down {
-  color: red;
-  font-weight: bold;
+  color: var(--error);
+  text-shadow: 0 0 10px rgba(255, 180, 171, 0.3);
 }
+
 .status-unknown {
-  color: gray;
+  color: var(--on-surface-variant);
 }
 </style>
